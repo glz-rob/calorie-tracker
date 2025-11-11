@@ -1,9 +1,10 @@
 import os
+from typing import Any, Mapping
 
 from flask import Flask
 
 
-def create_app(test_config=None) -> Flask:
+def create_app(test_config: Mapping[str, Any] | None = None) -> Flask:
     """
     Create and configure the app
     """
@@ -24,7 +25,11 @@ def create_app(test_config=None) -> Flask:
         pass
 
     @app.route("/hello")
-    def hello():
+    def hello():  # type: ignore
         return "Hello, World!"
+
+    from . import db
+
+    db.init_app(app)
 
     return app
