@@ -3,10 +3,17 @@
 {% block header %}
   <h1>{% block title %}Calorie Log{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="#">Log</a>
+    <a class="action" href="#">Log New</a>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-
+  {% for log in logs %}
+    <article class="log">
+        <p class="body">{{ log['food'] }} with {{ log['calories'] }} on {{ log['datetime'].strftime('%Y-%m-%d') }}</p>
+    </article>
+    {% if not loop.last %}
+      <hr>
+    {% endif %}
+  {% endfor %}
 {% endblock %}
