@@ -28,8 +28,13 @@ def create_app(test_config: Mapping[str, Any] | None = None) -> Flask:
     def hello():  # type: ignore
         return "Hello, World!"
 
-    from . import db
+    from . import auth, db, tracker
 
     db.init_app(app)
+
+    app.register_blueprint(auth.bp)
+
+    app.register_blueprint(tracker.bp)
+    app.add_url_rule("/", endpoint="index")
 
     return app
