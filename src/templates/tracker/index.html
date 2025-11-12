@@ -8,9 +8,9 @@
 {% endblock %}
 
 {% block content %}
-  {% for log in logs %}
+  {% for date in dates %}
     <article class="log">
-        <p class="body">{{ log['food'] }} with {{ log['calories'] }} on {{ log['datetime'].strftime('%Y-%m-%d') }}</p>
+        <p class="body"><a href="{{ url_for('tracker.date_logs', date_id=date['id']) }}">{{ date['datetime'].strftime('%Y-%m-%d') }}</a></p>
     </article>
     {% if not loop.last %}
       <hr>
