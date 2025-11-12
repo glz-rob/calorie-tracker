@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
+{% block title %}Log{% endblock %}
+
 {% block header %}
-  <h1>{% block title %}Calorie Log for {{ date['datetime'].strftime('%A %d, %B %Y') }}{% endblock %}</h1>
+  <h1>Calorie Log for {{ date['datetime'].strftime('%A %d, %B %Y') }}</h1>
   {% if g.user %}
     <a class="action" href="#">Add Food</a>
   {% endif %}
@@ -10,7 +12,7 @@
 {% block content %}
   <ul>
   {% for log in logs %}
-        <li>{{ log['food'] }} with {{ log['calories']}} calorie(s)</li>
+        <li>{{ log['food'].capitalize() }} with {{ log['calories']}} calorie(s)</li>
         {% if not loop.last %}
           <hr>
         {% endif %}

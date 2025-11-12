@@ -23,6 +23,9 @@ def index():
     return render_template("tracker/index.html", dates=dates)
 
 
+# LOGS PER DAY
+
+
 @bp.route("/logs/<int:date_id>", methods=("GET",))
 def date_logs(date_id: int):
     db = get_db()
