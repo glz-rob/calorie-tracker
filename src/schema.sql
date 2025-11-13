@@ -10,8 +10,7 @@ CREATE TABLE user (
 CREATE TABLE calorie_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     user_id INTEGER NOT NULL,
-    -- date TEXT DEFAULT datetime('now'),
+    date DEFAULT CURRENT_TIMESTAMP,
     food TEXT NOT NULL,
-    calories INTEGER NOT NULL,
-    FOREIGN KEY (user_id) REFERENCES user (id)
-)
+    calories INTEGER NOT NULL
+);
