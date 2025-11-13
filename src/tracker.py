@@ -9,7 +9,7 @@ from src.db import get_db
 bp = Blueprint("tracker", __name__)
 
 
-@bp.route("/")
+@bp.route("/", methods=("GET",))
 @login_required
 def index():
     db = get_db()
@@ -18,7 +18,7 @@ def index():
         (g.user["id"],),
     ).fetchall()
 
-    return render_template("tracker/index.html", dates=dates)
+    return render_template("tracker/index.html", today=dt.today(), dates=dates)
 
 
 # LOGS PER DAY
@@ -29,7 +29,7 @@ def index():
 def date_logs(date: str):
     db = get_db()
     logs = db.execute(
-        "SELECT date, food, calories"
+        "SELECT id, date, food, calories"
         " FROM calorie_log c"
         " WHERE user_id == (?) AND date(date) == (?)"
         " ORDER BY date ASC;",
@@ -70,3 +70,18 @@ def create_log(date: str):
             return redirect(url_for("tracker.date_logs", date=date))
 
     return render_template("tracker/add.html", date=dt.fromisoformat(date))
+
+
+@bp.route("/log/<int:id>/delete", methods=("POST",))
+@login_required
+def delete(id: int):
+    db = get_db()
+    date = db.execute(
+        "SELECT date FROM calorie_log WHERE id = (?)",
+        (id,),
+    ).fetchone()["date"]
+
+    db.execute("DELETE FROM calorie_log WHERE id == (?)", (id,))
+    db.commit()
+
+    return redirect(url_for("tracker.date_logs", date=date))

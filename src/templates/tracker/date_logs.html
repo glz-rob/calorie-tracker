@@ -12,7 +12,14 @@
 {% block content %}
   <ul>
   {% for log in logs %}
-        <li>{{ log['food'].capitalize() }} with {{ log['calories']}} calorie(s)</li>
+        <li>
+          <div>
+            {{ log['id'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
+            <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
+              <input type="submit" value="x">
+            </form>
+          </div>
+        </li>
         {% if not loop.last %}
           <hr>
         {% endif %}

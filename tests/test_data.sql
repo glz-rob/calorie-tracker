@@ -33,3 +33,7 @@ VALUES
 SELECT DISTINCT date(date)
 FROM calorie_log
 WHERE user_id = 1;
+
+SELECT date
+FROM calorie_log
+WHERE id = 13
