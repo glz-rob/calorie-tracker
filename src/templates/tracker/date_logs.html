@@ -3,9 +3,9 @@
 {% block title %}Log{% endblock %}
 
 {% block header %}
-  <h1>Calorie Log for {{ date['datetime'].strftime('%A %d, %B %Y') }}</h1>
+  <h1>Calorie Log for {{ date.strftime('%A %d, %B %Y') }}</h1>
   {% if g.user %}
-    <a class="action" href="#">Add Food</a>
+    <a class="action" href="{{ url_for('tracker.create_log', date=date) }}">Add Food</a>
   {% endif %}
 {% endblock %}
 
