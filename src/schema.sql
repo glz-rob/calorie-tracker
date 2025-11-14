@@ -1,5 +1,4 @@
 DROP TABLE IF EXISTS user;
-DROP TABLE IF EXISTS date_log;
 DROP TABLE IF EXISTS calorie_log;
 
 CREATE TABLE user (
@@ -8,17 +7,10 @@ CREATE TABLE user (
     password TEXT NOT NULL
 );
 
-CREATE TABLE date_log (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    user_id INTEGER NOT NULL,
-    datetime TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (user_id) REFERENCES user (id)
-);
-
 CREATE TABLE calorie_log (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
-    date_id INTEGER NOT NULL,
+    user_id INTEGER NOT NULL,
+    date DEFAULT CURRENT_TIMESTAMP,
     food TEXT NOT NULL,
-    calories INTEGER NOT NULL,
-    FOREIGN KEY (date_id) REFERENCES date_log (id)
-)
+    calories INTEGER NOT NULL
+);
