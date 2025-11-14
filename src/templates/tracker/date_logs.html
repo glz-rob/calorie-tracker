@@ -3,26 +3,21 @@
 {% block title %}Log{% endblock %}
 
 {% block header %}
-  <h1>Calorie Log for {{ date.strftime('%A %d, %B %Y') }}</h1>
+  <h1>{{ date.strftime('%A %d, %B %Y') }}</h1>
   {% if g.user %}
     <a class="action" href="{{ url_for('tracker.create_log', date=date) }}">Add Food</a>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  <ul>
+  <ul class="list-group">
   {% for log in logs %}
-        <li>
-          <div>
-            {{ log['id'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
-            <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
-              <input type="submit" value="x">
-            </form>
-          </div>
-        </li>
-        {% if not loop.last %}
-          <hr>
-        {% endif %}
+    <div>
+      <li class="list-group-item">
+        {{ log['id'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
+        <button class="btn btn-danger">X</button>
+      </li>
+    </div>
   {% endfor %}
   </ul>
 {% endblock %}
