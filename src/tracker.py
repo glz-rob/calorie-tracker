@@ -1,4 +1,5 @@
 from datetime import date as dt
+from datetime import timedelta
 
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 
@@ -26,9 +27,18 @@ def index():
     return render_template("tracker/index.html", today=dt.today(), dates=dates)
 
 
+# FILTERS
+@bp.app_template_filter()
+def prev_day(value: dt) -> dt:
+    return value - timedelta(days=1)
+
+
+@bp.app_template_filter()
+def next_day(value: dt) -> dt:
+    return value + timedelta(days=1)
+
+
 # LOGS PER DAY
-
-
 @bp.route("/logs/<date>", methods=("GET",))
 @login_required
 def date_logs(date: str):

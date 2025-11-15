@@ -4,6 +4,10 @@
 
 {% block header %}
   <h1>{{ date.strftime('%A %d, %B %Y') }}</h1>
+  {% set prev = date|prev_day %}
+  {% set next = date|next_day %}
+  <a href="{{ url_for('tracker.date_logs', date=prev) }}">Prev</a>
+  <a href="{{ url_for('tracker.date_logs', date=next) }}">Next</a>
 {% endblock %}
 
 {% block content %}
