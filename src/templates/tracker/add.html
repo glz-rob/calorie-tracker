@@ -8,15 +8,12 @@
 
 {% block content %}
   <form method="post">
-    <label for="amount">Amount:</label>
-    <input name="amount" id="amount" type="number">
-    <br>
-    <label for="food">Food:</label>
-    <input name="food" id="food" required>
-    <br>
-    <label for="calories">Calories:</label>
-    <input name="calories" id="calories" required>
-    <br>
-    <input type="submit">
+    <label for="amount">Amount:</label><br>
+    <input name="amount" id="amount" type="number" value="1" min="1" required><br>
+    <label for="food">Food:</label><br>
+    <input name="food" id="food" type="text" required><br>
+    <label for="calories">Calories:</label><br>
+    <input name="calories" id="calories" type="number" step="10" min="0" required><br>
+    <input type="submit" value="Add">
   </form>
 {% endblock %}

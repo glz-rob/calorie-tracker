@@ -67,12 +67,16 @@ def create_log(date: str):
         amount = request.form["amount"]
         error = None
 
-        if not food or len(food.strip()) <= 0:
+        if not amount:
+            error = "Amount is required"
+        elif int(amount) <= 0:
+            error = "Amount must be more than 0"
+        elif not food or len(food.strip()) <= 0:
             error = "Food is required"
         elif not calories:
             error = "Calories are required"
-        elif not amount:
-            error = "Amount is required"
+        elif int(calories) <= 0:
+            error = "Calories amount must more than 0"
 
         if error is not None:
             flash(error)
