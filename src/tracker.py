@@ -43,7 +43,7 @@ def next_day(value: dt) -> dt:
 def date_logs(date: str):
     db = get_db()
     logs = db.execute(
-        "SELECT id, food, calories"
+        "SELECT id, amount, food, calories"
         " FROM calorie_log c"
         " WHERE user_id == (?) AND date(date) == (?)"
         " ORDER BY date ASC;",
@@ -64,21 +64,24 @@ def create_log(date: str):
     if request.method == "POST":
         food = request.form["food"]
         calories = request.form["calories"]
+        amount = request.form["amount"]
         error = None
 
-        if not food:
+        if not food or len(food.strip()) <= 0:
             error = "Food is required"
         elif not calories:
-            error = "Calorie amount is required"
+            error = "Calories are required"
+        elif not amount:
+            error = "Amount is required"
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                "INSERT INTO calorie_log (date, user_id, food, calories)"
-                " VALUES(?, ?, ?, ?)",
-                (date, g.user["id"], food, calories),
+                "INSERT INTO calorie_log (date, user_id, food, amount, calories)"
+                " VALUES(?, ?, ?, ?, ?)",
+                (date, g.user["id"], food, amount, calories),
             )
             db.commit()
             return redirect(url_for("tracker.date_logs", date=date))

@@ -14,7 +14,7 @@
   <ul>
   {% for log in logs %}
     <li>
-      {{ log['food'].capitalize() }} with {{ log['calories']}} calories
+      {{ log ['amount'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
       <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
         <button class="btn btn-danger" type="submit" value="x">x</button>
       </form>
