@@ -1,4 +1,5 @@
 from datetime import date as dt
+from datetime import timedelta
 
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 
@@ -9,21 +10,35 @@ from src.db import get_db
 bp = Blueprint("tracker", __name__)
 
 
-@bp.route("/", methods=("GET",))
+@bp.route("/", methods=("GET", "POST"))
 @login_required
 def index():
+    if request.method == "POST":
+        date = request.form["date"] if len(request.form["date"]) > 0 else dt.today()
+        return redirect(url_for("tracker.date_logs", date=date))
     db = get_db()
     dates = db.execute(
-        "SELECT DISTINCT date(date) AS date FROM calorie_log WHERE user_id = (?)",
+        "SELECT DISTINCT date FROM calorie_log WHERE user_id = (?)",
         (g.user["id"],),
     ).fetchall()
+
+    dates = [dt.fromisoformat(d["date"]) for d in dates]
 
     return render_template("tracker/index.html", today=dt.today(), dates=dates)
 
 
+# FILTERS
+@bp.app_template_filter()
+def prev_day(value: dt) -> dt:
+    return value - timedelta(days=1)
+
+
+@bp.app_template_filter()
+def next_day(value: dt) -> dt:
+    return value + timedelta(days=1)
+
+
 # LOGS PER DAY
-
-
 @bp.route("/logs/<date>", methods=("GET",))
 @login_required
 def date_logs(date: str):

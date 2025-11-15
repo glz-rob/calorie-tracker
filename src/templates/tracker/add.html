@@ -1,19 +1,22 @@
 {% extends 'base.html' %}
 
-{% block title %}Add Log{% endblock %}
+{% block title %}Add - {% endblock %}
 
 {% block header %}
-  <h1>Adding Log to {{ date.strftime('%A %d, %B %Y') }}</h1>
+  <h1>Logging to {{ date.strftime('%A %d, %B %Y') }}</h1>
 {% endblock %}
 
 {% block content %}
   <form method="post">
-    <label for="amount">Amount</label>
+    <label for="amount">Amount:</label>
     <input name="amount" id="amount" type="number">
-    <label for="food">Food</label>
+    <br>
+    <label for="food">Food:</label>
     <input name="food" id="food" required>
-    <label for="calories">Calories</label>
+    <br>
+    <label for="calories">Calories:</label>
     <input name="calories" id="calories" required>
+    <br>
     <input type="submit">
   </form>
 {% endblock %}

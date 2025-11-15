@@ -1,31 +1,30 @@
 {% extends 'base.html' %}
 
-{% block title %}Log{% endblock %}
+{% block title %}Log - {% endblock %}
 
 {% block header %}
   <h1>{{ date.strftime('%A %d, %B %Y') }}</h1>
+  {% set prev = date|prev_day %}
+  {% set next = date|next_day %}
+  <a href="{{ url_for('tracker.date_logs', date=prev) }}">Prev</a>
+  <a href="{{ url_for('tracker.date_logs', date=next) }}">Next</a>
+{% endblock %}
+
+{% block content %}
+  <ul>
+  {% for log in logs %}
+    <li>
+      {{ log['food'].capitalize() }} with {{ log['calories']}} calories
+      <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
+        <button class="btn btn-danger" type="submit" value="x">x</button>
+      </form>
+    </li>
+  {% endfor %}
+  </ul>
+
   {% if g.user %}
     <form action="{{ url_for('tracker.create_log', date=date) }}" method="get">
       <button class="btn btn-danger" type="submit">Add Food</button>
     </form>
   {% endif %}
-{% endblock %}
-
-{% block content %}
-  <!-- <div class="container"> -->
-  <ul>
-  {% for log in logs %}
-      <!-- <div class="row align-items-start">
-        <div class="col-8 align-self-start"> -->
-          <li>{{ log['food'].capitalize() }} with {{ log['calories']}} calories
-        <!-- </div>
-        <div class="col-3 align-self-end"> -->
-          <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
-            <button class="btn btn-danger" type="submit" value="x">x</button>
-          </form></li>
-        <!-- </div>
-      </div> -->
-  {% endfor %}
-  </ul>
-  <!-- </div> -->
 {% endblock %}
