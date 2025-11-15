@@ -1,7 +1,7 @@
 {% extends 'base.html' %}
 
 {% block header %}
-  <h1>{% block title %}Calorie Log{% endblock %}</h1>
+  <h1>Calorie Log</h1>
   {% if g.user %}
     <form method="post">
       <input type="date" id="date" name="date">
@@ -16,7 +16,4 @@
       <p class="body"><a href="{{ url_for('tracker.date_logs', date=date) }}">{{ date.strftime("%B %d, %Y") }}</a></p>
     </article>
   {% endfor %}
-
-  <!-- <input type="date"> -->
-
 {% endblock %}

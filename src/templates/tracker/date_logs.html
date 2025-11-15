@@ -1,14 +1,9 @@
 {% extends 'base.html' %}
 
-{% block title %}Log{% endblock %}
+{% block title %}Log - {% endblock %}
 
 {% block header %}
   <h1>{{ date.strftime('%A %d, %B %Y') }}</h1>
-  {% if g.user %}
-    <form action="{{ url_for('tracker.create_log', date=date) }}" method="get">
-      <button class="btn btn-danger" type="submit">Add Food</button>
-    </form>
-  {% endif %}
 {% endblock %}
 
 {% block content %}
@@ -22,4 +17,10 @@
     </li>
   {% endfor %}
   </ul>
+
+  {% if g.user %}
+    <form action="{{ url_for('tracker.create_log', date=date) }}" method="get">
+      <button class="btn btn-danger" type="submit">Add Food</button>
+    </form>
+  {% endif %}
 {% endblock %}
