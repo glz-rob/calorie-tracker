@@ -3,7 +3,6 @@ from datetime import timedelta
 
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 
-# from werkzeug.exceptions import abort
 from src.auth import login_required
 from src.db import get_db
 
@@ -44,7 +43,7 @@ def next_day(value: dt) -> dt:
 def date_logs(date: str):
     db = get_db()
     logs = db.execute(
-        "SELECT id, food, calories"
+        "SELECT id, amount, food, calories"
         " FROM calorie_log c"
         " WHERE user_id == (?) AND date(date) == (?)"
         " ORDER BY date ASC;",
@@ -53,9 +52,13 @@ def date_logs(date: str):
             date,
         ),
     ).fetchall()
+    total_calories = sum([int(x["calories"]) for x in logs])
 
     return render_template(
-        "tracker/date_logs.html", date=dt.fromisoformat(date), logs=logs
+        "tracker/date_logs.html",
+        date=dt.fromisoformat(date),
+        logs=logs,
+        total_calories=total_calories,
     )
 
 
@@ -65,21 +68,28 @@ def create_log(date: str):
     if request.method == "POST":
         food = request.form["food"]
         calories = request.form["calories"]
+        amount = request.form["amount"]
         error = None
 
-        if not food:
+        if not amount:
+            error = "Amount is required"
+        elif int(amount) <= 0:
+            error = "Amount must be more than 0"
+        elif not food or len(food.strip()) <= 0:
             error = "Food is required"
         elif not calories:
-            error = "Calorie amount is required"
+            error = "Calories are required"
+        elif int(calories) <= 0:
+            error = "Calories amount must more than 0"
 
         if error is not None:
             flash(error)
         else:
             db = get_db()
             db.execute(
-                "INSERT INTO calorie_log (date, user_id, food, calories)"
-                " VALUES(?, ?, ?, ?)",
-                (date, g.user["id"], food, calories),
+                "INSERT INTO calorie_log (date, user_id, food, amount, calories)"
+                " VALUES(?, ?, ?, ?, ?)",
+                (date, g.user["id"], food, amount, calories),
             )
             db.commit()
             return redirect(url_for("tracker.date_logs", date=date))

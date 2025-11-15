@@ -4,7 +4,7 @@ from sqlite3 import Connection
 from typing import IO, Any, cast
 
 import click
-from flask import current_app, g, Flask
+from flask import Flask, current_app, g
 
 
 def get_db() -> Connection:

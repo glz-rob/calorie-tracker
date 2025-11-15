@@ -4,7 +4,7 @@
   <h1>Calorie Log</h1>
   {% if g.user %}
     <form method="post">
-      <input type="date" id="date" name="date">
+      <input type="date" id="date" name="date" value="{{ today }}">
       <button class="btn btn-danger" type="submit">New</button>
     </form>
   {% endif %}
