@@ -14,9 +14,11 @@ bp = Blueprint("tracker", __name__)
 def index():
     db = get_db()
     dates = db.execute(
-        "SELECT DISTINCT date(date) AS date FROM calorie_log WHERE user_id = (?)",
+        "SELECT DISTINCT date FROM calorie_log WHERE user_id = (?)",
         (g.user["id"],),
     ).fetchall()
+
+    dates = [dt.fromisoformat(d["date"]) for d in dates]
 
     return render_template("tracker/index.html", today=dt.today(), dates=dates)
 
