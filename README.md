@@ -21,7 +21,12 @@ flask --app src init-db
 - [　] Add calories depending on the selected food and the amount
 - [　] Food input field to be suggestive dropdown
 - [　] Add other info (protein, sugar, carbs, etc.)
+    - [X] Sum of calories per day
+    - [　] Proteins
+    - [　] Carbs
+    - [　] Sugars
 - [　] Add icons
+- [X] Form input validations
 
 ### Date
 

@@ -52,9 +52,13 @@ def date_logs(date: str):
             date,
         ),
     ).fetchall()
+    total_calories = sum([int(x["calories"]) for x in logs])
 
     return render_template(
-        "tracker/date_logs.html", date=dt.fromisoformat(date), logs=logs
+        "tracker/date_logs.html",
+        date=dt.fromisoformat(date),
+        logs=logs,
+        total_calories=total_calories,
     )
 
 
