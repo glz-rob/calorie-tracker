@@ -1,4 +1,5 @@
 import functools
+from typing import Any, Callable
 
 from flask import (
     Blueprint,
@@ -10,8 +11,6 @@ from flask import (
     session,
     url_for,
 )
-
-from typing import Any, Callable
 from werkzeug.security import check_password_hash, generate_password_hash
 
 from src.db import get_db
