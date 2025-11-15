@@ -10,14 +10,18 @@
 {% endblock %}
 
 {% block content %}
-  <ul class="list-group">
+  <div class="container">
   {% for log in logs %}
-    <div>
-      <li class="list-group-item">
-        {{ log['id'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
-        <button class="btn btn-danger">X</button>
-      </li>
-    </div>
+      <div class="row align-items-start">
+        <div class="col-8 align-self-start">
+          {{ log['id'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
+        </div>
+        <div class="col-3 align-self-end">
+          <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
+            <button class="btn btn-danger" type="submit" value="x">x</button>
+          </form>
+        </div>
+      </div>
   {% endfor %}
-  </ul>
+  </div>
 {% endblock %}
