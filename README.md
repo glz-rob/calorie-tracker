@@ -18,14 +18,14 @@ flask --app src init-db
 
 ### Add Food
 
-- [] Add calories depending on the selected food and the amount
-- [] Food input field to be suggestive dropdown
-- [] Add other info (protein, sugar, carbs, etc.)
-- [] Add icons
+- [　] Add calories depending on the selected food and the amount
+- [　] Food input field to be suggestive dropdown
+- [　] Add other info (protein, sugar, carbs, etc.)
+- [　] Add icons
 
 ### Date
 
-- [] Give the sum of total calories consumed (and other nutrients)
+- [　] Give the sum of total calories consumed (and other nutrients)
 - [x] Add a specific date
 - [X] Navigate to next or past date from date page
-- [] Info sum and graphic
+- [　] Info sum and graphic
