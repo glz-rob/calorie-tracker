@@ -12,5 +12,6 @@ CREATE TABLE calorie_log (
     user_id INTEGER NOT NULL,
     date DEFAULT CURRENT_TIMESTAMP,
     food TEXT NOT NULL,
+    amount INTEGER DEFAULT 1,
     calories INTEGER NOT NULL
 );
