@@ -3,7 +3,9 @@
 {% block header %}
   <h1>{% block title %}Calorie Log{% endblock %}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('tracker.create_log', date=today) }}">New</a>
+    <form action="{{ url_for('tracker.create_log', date=today) }}" method="get">
+      <button class="btn btn-danger" type="submit">New</button>
+    </form>
   {% endif %}
 {% endblock %}
 
@@ -12,8 +14,8 @@
     <article class="log">
         <p class="body"><a href="{{ url_for('tracker.date_logs', date=date['date']) }}">{{ date['date'] }}</a></p>
     </article>
-    {% if not loop.last %}
+    <!-- {% if not loop.last %}
       <hr>
-    {% endif %}
+    {% endif %} -->
   {% endfor %}
 {% endblock %}

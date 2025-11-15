@@ -29,7 +29,7 @@ def index():
 def date_logs(date: str):
     db = get_db()
     logs = db.execute(
-        "SELECT id, date, food, calories"
+        "SELECT id, food, calories"
         " FROM calorie_log c"
         " WHERE user_id == (?) AND date(date) == (?)"
         " ORDER BY date ASC;",
@@ -77,7 +77,7 @@ def create_log(date: str):
 def delete(id: int):
     db = get_db()
     date = db.execute(
-        "SELECT date FROM calorie_log WHERE id = (?)",
+        "SELECT date(date) AS date FROM calorie_log WHERE id = (?)",
         (id,),
     ).fetchone()["date"]
 

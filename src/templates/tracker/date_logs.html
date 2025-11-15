@@ -5,19 +5,27 @@
 {% block header %}
   <h1>{{ date.strftime('%A %d, %B %Y') }}</h1>
   {% if g.user %}
-    <a class="action" href="{{ url_for('tracker.create_log', date=date) }}">Add Food</a>
+    <form action="{{ url_for('tracker.create_log', date=date) }}" method="get">
+      <button class="btn btn-danger" type="submit">Add Food</button>
+    </form>
   {% endif %}
 {% endblock %}
 
 {% block content %}
-  <ul class="list-group">
+  <!-- <div class="container"> -->
+  <ul>
   {% for log in logs %}
-    <div>
-      <li class="list-group-item">
-        {{ log['id'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
-        <button class="btn btn-danger">X</button>
-      </li>
-    </div>
+      <!-- <div class="row align-items-start">
+        <div class="col-8 align-self-start"> -->
+          <li>{{ log['food'].capitalize() }} with {{ log['calories']}} calories
+        <!-- </div>
+        <div class="col-3 align-self-end"> -->
+          <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
+            <button class="btn btn-danger" type="submit" value="x">x</button>
+          </form></li>
+        <!-- </div>
+      </div> -->
   {% endfor %}
   </ul>
+  <!-- </div> -->
 {% endblock %}
