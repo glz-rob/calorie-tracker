@@ -2,12 +2,19 @@
 
 {% block title %}Log - {% endblock %}
 
+{% block style %}
+  <link rel="stylesheet" href="{{ url_for('static', filename='dates.css') }}">
+{% endblock %}
+
 {% block header %}
-  <h1>{{ date.strftime('%B %d, %Y') }}</h1>
   {% set prev = date|prev_day %}
   {% set next = date|next_day %}
-  <a href="{{ url_for('tracker.date_logs', date=prev) }}">Prev</a>
-  <a href="{{ url_for('tracker.date_logs', date=next) }}">Next</a>
+
+  <div class="date-nav">
+    <a class="date-nav-item" href="{{ url_for('tracker.date_logs', date=prev) }}">Prev</a>
+    <h1 class="date-nav-item">{{ date.strftime('%B %d, %Y') }}</h1>
+    <a class="date-nav-item" href="{{ url_for('tracker.date_logs', date=next) }}">Next</a>
+  </div>
 {% endblock %}
 
 {% block content %}
@@ -16,15 +23,17 @@
   <hr>
 
   {% for log in logs %}
-    {{ log ['amount'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
-    <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
-      <button class="btn btn-danger" type="submit" value="x">x</button>
-    </form>
+    <div class="list">
+      {{ log ['amount'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
+      <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
+        <button class="danger" type="submit">Remove</button>
+      </form>
+    </div>
   {% endfor %}
 
   {% if g.user %}
     <form action="{{ url_for('tracker.create_log', date=date) }}" method="get">
-      <button class="btn btn-danger" type="submit">Add Food</button>
+      <button type="submit">Add Food</button>
     </form>
   {% endif %}
 {% endblock %}
