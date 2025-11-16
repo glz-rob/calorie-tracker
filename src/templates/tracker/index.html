@@ -11,9 +11,11 @@
 {% endblock %}
 
 {% block content %}
+  <div class="list">
   {% for date in dates %}
     <article class="log">
       <p class="body"><a href="{{ url_for('tracker.date_logs', date=date) }}">{{ date.strftime("%B %d, %Y") }}</a></p>
     </article>
   {% endfor %}
+  </div>
 {% endblock %}

@@ -1,0 +1,9 @@
+.date-nav {
+    display: flex;
+    justify-content: space-between;
+}
+
+.date-nav-item {
+    align-content: center;
+}
+

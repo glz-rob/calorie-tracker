@@ -3,6 +3,45 @@ html {
     background: #eee; padding: 1rem;
 }
 
+body {
+    margin: auto;
+    text-align: justify;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+    padding: 0.1rem;
+}
+
+a:hover {
+    color: rgb(20, 20, 88);
+    background-color: #bbbbbb58;
+}
+
+button {
+    background-color: #878787;
+    border: 0px;
+    border-radius: 5%;
+    color: #eee;
+    padding: 5px 10px 5px 10px;
+}
+
+button:hover{
+    cursor: pointer;
+}
+
+.danger {
+    background-color: #e56;
+    color: #eee;
+}
+
+.list {
+    display:flex;
+    justify-content: space-between;
+    padding: 0.5rem;
+}
+
 .test {
     border: 1px solid magenta;
     margin: 0;
