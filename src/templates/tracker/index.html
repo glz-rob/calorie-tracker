@@ -2,15 +2,16 @@
 
 {% block header %}
   <h1>Calorie Log</h1>
+{% endblock %}
+
+{% block content %}
   {% if g.user %}
     <form method="post">
       <input type="date" id="date" name="date" value="{{ today }}">
       <button class="btn btn-danger" type="submit">New</button>
     </form>
   {% endif %}
-{% endblock %}
 
-{% block content %}
   {% for date in dates %}
     <article class="log">
       <p class="body"><a href="{{ url_for('tracker.date_logs', date=date) }}">{{ date.strftime("%B %d, %Y") }}</a></p>
