@@ -16,6 +16,18 @@ flask --app src init-db
 
 ## Roadmap
 
+### General
+
+- [　] Responsiveness
+    - [x] Auth
+    - [　] Tracker
+- [　] Layout
+    - [x] Auth
+    - [　] Tracker
+- [　] Style
+    - [　] Auth
+    - [　] Tracker
+
 ### Add Food
 
 - [　] Add calories depending on the selected food and the amount
