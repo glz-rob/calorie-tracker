@@ -3,8 +3,10 @@ html {
     background: #eee;
 }
 
+form {
+    padding: 1rem;
+}
+
 .test {
     border: 1px solid magenta;
-    margin: 0;
-    padding: 0;
 }
