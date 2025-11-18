@@ -5,16 +5,11 @@
 {% endblock %}
 
 {% block content %}
-  {% if g.user %}
-    <form method="post">
-      <input type="date" id="date" name="date" value="{{ today }}">
-      <button class="btn btn-danger" type="submit">New</button>
-    </form>
-  {% endif %}
-
+  <div class="row justify-content-start">
   {% for date in dates %}
-    <article class="log">
-      <p class="body"><a href="{{ url_for('tracker.date_logs', date=date) }}">{{ date.strftime("%B %d, %Y") }}</a></p>
-    </article>
+    <div class="col-6 col-md-4 col-lg-3 col-xxl-2 p-2 text-center">
+      <a class="btn btn-light" href="{{ url_for('tracker.date_logs', date=date) }}">{{ date.strftime("%B %d, %Y") }}</a>
+    </div>
   {% endfor %}
+  </div>
 {% endblock %}

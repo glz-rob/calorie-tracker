@@ -9,21 +9,27 @@ from src.db import get_db
 bp = Blueprint("tracker", __name__)
 
 
-@bp.route("/", methods=("GET", "POST"))
+@bp.route("/", methods=("GET",))
+@bp.route("/<year>/<month>", methods=("GET",))
 @login_required
-def index():
-    if request.method == "POST":
-        date = request.form["date"] if len(request.form["date"]) > 0 else dt.today()
-        return redirect(url_for("tracker.date_logs", date=date))
+def index(year: str | None = None, month: str | None = None):
+    year = str(dt.today().year) if year is None else year
+    month = dt.today().strftime("%m") if month is None else month
+
     db = get_db()
     dates = db.execute(
-        "SELECT DISTINCT date FROM calorie_log WHERE user_id = (?)",
-        (g.user["id"],),
+        "SELECT DISTINCT date "
+        "FROM calorie_log "
+        "WHERE user_id = (?) "
+        "   AND strftime('%m', date) = (?) "
+        "   AND strftime('%Y', date) = (?) "
+        "ORDER BY date",
+        (g.user["id"], month, year),
     ).fetchall()
 
     dates = [dt.fromisoformat(d["date"]) for d in dates]
 
-    return render_template("tracker/index.html", today=dt.today(), dates=dates)
+    return render_template("tracker/index.html", dates=dates)
 
 
 # FILTERS
