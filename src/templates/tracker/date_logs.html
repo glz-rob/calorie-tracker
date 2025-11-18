@@ -11,9 +11,9 @@
   {% set next = date|next_day %}
 
   <div>
-    <a href="{{ url_for('tracker.date_logs', date=prev) }}">Prev</a>
+    <a href="{{ url_for('tracker.date_logs', year=prev[0], month=prev[1], day=prev[2]) }}">Prev</a>
     <h1>{{ date.strftime('%B %d, %Y') }}</h1>
-    <a href="{{ url_for('tracker.date_logs', date=next) }}">Next</a>
+    <a href="{{ url_for('tracker.date_logs', year=next[0], month=next[1], day=next[2]) }}">Next</a>
   </div>
 
   <h2>Total Calories: {{ total_calories }}</h2>
@@ -30,7 +30,7 @@
   {% endfor %}
 
   {% if g.user %}
-    <form action="{{ url_for('tracker.create_log', date=date) }}" method="get">
+    <form action="{{ url_for('tracker.create_log', year=date.year, month=date.month, day=date.day) }}" method="get">
       <button type="submit">Add Food</button>
     </form>
   {% endif %}

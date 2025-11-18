@@ -1,5 +1,6 @@
 from datetime import date as dt
 from datetime import timedelta
+from typing import Tuple
 
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 
@@ -34,19 +35,22 @@ def index(year: str | None = None, month: str | None = None):
 
 # FILTERS
 @bp.app_template_filter()
-def prev_day(value: dt) -> dt:
-    return value - timedelta(days=1)
+def prev_day(value: dt) -> Tuple[int, int, int]:
+    prev = value - timedelta(days=1)
+    return (prev.year, prev.month, prev.day)
 
 
 @bp.app_template_filter()
-def next_day(value: dt) -> dt:
-    return value + timedelta(days=1)
+def next_day(value: dt) -> Tuple[int, int, int]:
+    next = value + timedelta(days=1)
+    return (next.year, next.month, next.day)
 
 
 # LOGS PER DAY
-@bp.route("/logs/<date>", methods=("GET",))
+@bp.route("/logs/<int:year>/<int:month>/<int:day>", methods=("GET",))
 @login_required
-def date_logs(date: str):
+def date_logs(year: int, month: int, day: int):
+    date = dt(year, month, day)
     db = get_db()
     logs = db.execute(
         "SELECT id, amount, food, calories"
@@ -62,15 +66,16 @@ def date_logs(date: str):
 
     return render_template(
         "tracker/date_logs.html",
-        date=dt.fromisoformat(date),
+        date=date,
         logs=logs,
         total_calories=total_calories,
     )
 
 
-@bp.route("/logs/<date>/add", methods=("GET", "POST"))
+@bp.route("/logs/<int:year>/<int:month>/<int:day>/add", methods=("GET", "POST"))
 @login_required
-def create_log(date: str):
+def create_log(year: int, month: int, day: int):
+    date = dt(year, month, day)
     if request.method == "POST":
         food = request.form["food"]
         calories = request.form["calories"]
@@ -98,21 +103,27 @@ def create_log(date: str):
                 (date, g.user["id"], food, amount, calories),
             )
             db.commit()
-            return redirect(url_for("tracker.date_logs", date=date))
+            return redirect(
+                url_for("tracker.date_logs", year=year, month=month, day=day)
+            )
 
-    return render_template("tracker/add.html", date=dt.fromisoformat(date))
+    return render_template("tracker/add.html", date=date)
 
 
 @bp.route("/log/<int:id>/delete", methods=("POST",))
 @login_required
 def delete(id: int):
     db = get_db()
-    date = db.execute(
-        "SELECT date(date) AS date FROM calorie_log WHERE id = (?)",
-        (id,),
-    ).fetchone()["date"]
+    date = dt.fromisoformat(
+        db.execute(
+            "SELECT date(date) AS date FROM calorie_log WHERE id = (?)",
+            (id,),
+        ).fetchone()["date"]
+    )
 
     db.execute("DELETE FROM calorie_log WHERE id == (?)", (id,))
     db.commit()
 
-    return redirect(url_for("tracker.date_logs", date=date))
+    return redirect(
+        url_for("tracker.date_logs", year=date.year, month=date.month, day=date.day)
+    )
