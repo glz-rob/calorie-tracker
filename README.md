@@ -28,6 +28,10 @@ flask --app src init-db
     - [　] Auth
     - [　] Tracker
 
+### Calendar
+
+- [　] Calendar layout in index
+
 ### Add Food
 
 - [　] Add calories depending on the selected food and the amount
