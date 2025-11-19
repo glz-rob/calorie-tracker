@@ -5,11 +5,26 @@
 {% endblock %}
 
 {% block content %}
-  <div class="row justify-content-start">
-  {% for date in dates %}
-    <div class="col-6 col-md-4 col-lg-3 col-xxl-2 p-2 text-center">
-      <a class="btn btn-light" href="{{ url_for('tracker.date_logs', date=date) }}">{{ date.strftime("%B %d, %Y") }}</a>
+  <div class="calendar">
+    <div class="calendar-header">
+      <button id="prev-month">‹</button>
+      <div id="month-year"></div>
+      <button id="next-month">›</button>
     </div>
-  {% endfor %}
+    <div class="calendar-body">
+      <div class="calendar-weekdays">
+        <div>Sun</div>
+        <div>Mon</div>
+        <div>Tue</div>
+        <div>Wed</div>
+        <div>Thu</div>
+        <div>Fri</div>
+        <div>Sat</div>
+      </div>
+      <div class="calendar-dates">
+      </div>
+    </div>
   </div>
+
+  <script src="{{ url_for('static', filename='js/calendar.js') }}"></script>
 {% endblock %}

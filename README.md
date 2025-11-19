@@ -19,10 +19,10 @@ flask --app src init-db
 ### General
 
 - [　] Responsiveness
-    - [x] Auth
+    - [X] Auth
     - [　] Tracker
 - [　] Layout
-    - [x] Auth
+    - [X] Auth
     - [　] Tracker
 - [　] Style
     - [　] Auth
@@ -30,7 +30,7 @@ flask --app src init-db
 
 ### Calendar
 
-- [　] Calendar layout in index
+- [X] Calendar layout in index
 
 ### Add Food
 
@@ -47,6 +47,6 @@ flask --app src init-db
 ### Date
 
 - [　] Give the sum of total calories consumed (and other nutrients)
-- [x] Add a specific date
+- [X] Add a specific date
 - [X] Navigate to next or past date from date page
 - [　] Info sum and graphic
