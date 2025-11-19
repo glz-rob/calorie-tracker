@@ -4,8 +4,8 @@ from typing import Tuple
 
 from flask import Blueprint, flash, g, redirect, render_template, request, url_for
 
-from src.auth import login_required
-from src.db import get_db
+from app.auth import login_required
+from app.db import get_db
 
 bp = Blueprint("tracker", __name__)
 
