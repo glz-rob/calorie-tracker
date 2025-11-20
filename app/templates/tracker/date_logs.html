@@ -10,28 +10,38 @@
   {% set prev = date|prev_day %}
   {% set next = date|next_day %}
 
-  <div>
-    <a href="{{ url_for('tracker.date_logs', year=prev[0], month=prev[1], day=prev[2]) }}">Prev</a>
+  <div class="horizontal-nav">
+    <a class="btn" href="{{ url_for('tracker.date_logs', year=prev[0], month=prev[1], day=prev[2]) }}">‹</a>
     <h1>{{ date.strftime('%B %d, %Y') }}</h1>
-    <a href="{{ url_for('tracker.date_logs', year=next[0], month=next[1], day=next[2]) }}">Next</a>
+    <a class="btn" href="{{ url_for('tracker.date_logs', year=next[0], month=next[1], day=next[2]) }}">›</a>
   </div>
 
-  <h2>Total Calories: {{ total_calories }}</h2>
-
-  <hr>
-
   {% for log in logs %}
-    <div class="list">
-      {{ log ['amount'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} calories
-      <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
-        <button class="danger" type="submit">Remove</button>
-      </form>
+    <div class="row align-items-center p-2">
+      <div class="col-8 text-start">
+        {{ log ['amount'] }} {{ log['food'].capitalize() }} with {{ log['calories']}} kcal
+      </div>
+      <div class="col-4 text-center">
+        <form action="{{ url_for('tracker.delete', id=log['id']) }}" method="post">
+          <button class="btn btn-secondary" type="submit">Remove</button>
+        </form>
+      </div>
     </div>
   {% endfor %}
 
   {% if g.user %}
-    <form action="{{ url_for('tracker.create_log', year=date.year, month=date.month, day=date.day) }}" method="get">
-      <button type="submit">Add Food</button>
-    </form>
+    <div class="row align-items-end p-2">
+      <div class="col-4 text-start">
+        <form action="{{ url_for('tracker.create_log', year=date.year, month=date.month, day=date.day) }}" method="get">
+          <button class="btn btn-primary" type="submit">Add Food</button>
+        </form>
+      </div>
+    </div>
   {% endif %}
+
+  <div class="row align-items-center p-2 mb-1">
+    <div class="col text-center">
+      <h3>Total Calories: {{ total_calories }} kcal</h3>
+    </div>
+  </div>
 {% endblock %}

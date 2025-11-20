@@ -3,30 +3,31 @@ html {
     background: #eee;
 }
 
-form {
-    padding: 1rem;
-}
-
 .test {
     border: 1px solid magenta;
 }
 
-/* Calendar */
-.calendar {
-    background-color: #fff;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+.list-item {
+  display: flex;
 }
-.calendar-header {
+
+/* Horizontal Next & Prev*/
+.horizontal-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 10px;
 }
-.calendar-header button {
-  background-color: transparent;
-  border: none;
-  font-size: 1.5em;
-  cursor: pointer;
+
+.horizontal-nav > a {
+  font-size: 40px;
+}
+
+/* Calendar */
+
+.calendar {
+    background-color: #fff;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
 }
 #month-year {
   font-size: 1.2em;
