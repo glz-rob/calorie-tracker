@@ -1,3 +1,17 @@
-<footer>
-  Built by Roberto.
+{% block style %}
+<style>
+  footer {
+    color: gray;
+    font-size: 13px;
+  }
+</style>
+{% endblock %}
+
+<footer class="row mx-4 py-2 justify-content-between align-items-top">
+  <div class="col-6 text-start">
+    Site built by rob using Flask.<br>
+    <br>
+    Github: <a href="https://github.com/glz-rob">@glz-rob</a><br>
+    LinkedIn: <a href="https://www.linkedin.com/in/rob-glz/">rob-glz</a>
+  </div>
 </footer>

@@ -50,3 +50,8 @@ flask --app src init-db
 - [X] Add a specific date
 - [X] Navigate to next or past date from date page
 - [　] Info sum and graphic
+
+## APIs
+
+https://spoonacular.com/food-api/docs#Ingredients-by-ID
+
